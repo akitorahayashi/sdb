@@ -1,0 +1,5 @@
+{
+  "name": "transnetv2",
+  "run": ["bun", "src/cli.ts"],
+  "cwd": "adapters/transnetv2"
+}

@@ -1,0 +1,13 @@
+# adapter environments
+.venv/
+__pycache__/
+node_modules/
+dist/
+
+# run artifacts (keep directory structure, ignore generated content)
+results/**
+!results/**/
+!results/**/.gitkeep
+
+# model cache used by ONNX-based adapters
+*.onnx
