@@ -1,0 +1,5 @@
+{
+  "name": "pyscenedetect",
+  "run": ["uv", "run", "src/cli.py"],
+  "cwd": "adapters/pyscenedetect"
+}

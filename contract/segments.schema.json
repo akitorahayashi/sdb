@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sdb/contract/segments.schema.json",
+  "title": "NormalizedSegments",
+  "description": "Language-neutral output contract every adapter must emit. One file per adapter run.",
+  "type": "object",
+  "required": ["meta", "segments"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["tool", "input", "inputSha256", "elapsedMs", "durationMs"],
+      "additionalProperties": false,
+      "properties": {
+        "tool": { "type": "string", "description": "Adapter identity, unique across adapters/*." },
+        "version": { "type": "string", "description": "Underlying package version, when resolvable." },
+        "params": { "type": "object", "description": "Detection parameters actually used." },
+        "input": { "type": "string", "description": "Absolute path of the analysed video." },
+        "inputSha256": { "type": "string", "description": "SHA-256 of the input, so runs are comparable only on identical media." },
+        "elapsedMs": { "type": "number", "description": "Wall-clock detection time." },
+        "durationMs": { "type": "number", "description": "End of the last segment; the covered span." }
+      }
+    },
+    "segments": {
+      "type": "array",
+      "description": "Ordered, non-overlapping time ranges.",
+      "items": {
+        "type": "object",
+        "required": ["index", "startMs", "endMs"],
+        "additionalProperties": false,
+        "properties": {
+          "index": { "type": "integer", "minimum": 0 },
+          "startMs": { "type": "number", "minimum": 0 },
+          "endMs": { "type": "number", "minimum": 0 },
+          "score": { "type": "number", "description": "Optional confidence, when the tool exposes one." }
+        }
+      }
+    }
+  }
+}
