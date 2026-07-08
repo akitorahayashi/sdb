@@ -37,8 +37,10 @@ def main() -> None:
     parser.add_argument("--threshold", type=float, default=27.0)
     args = parser.parse_args()
 
+    input_path = os.path.abspath(args.input)
+
     started = time.perf_counter()
-    scenes = detect(args.input, ContentDetector(threshold=args.threshold))
+    scenes = detect(input_path, ContentDetector(threshold=args.threshold))
     elapsed_ms = (time.perf_counter() - started) * 1000
 
     segments = [
@@ -56,8 +58,8 @@ def main() -> None:
             "tool": "pyscenedetect",
             "version": _version(),
             "params": {"threshold": args.threshold},
-            "input": args.input,
-            "inputSha256": _sha256(args.input),
+            "input": input_path,
+            "inputSha256": _sha256(input_path),
             "elapsedMs": elapsed_ms,
             "durationMs": duration_ms,
         },

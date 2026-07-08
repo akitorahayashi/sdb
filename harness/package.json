@@ -1,13 +1,14 @@
 {
   "name": "harness",
   "version": "0.1.0",
-  "description": "Runs every adapter on the same input and compares their normalized segments.",
+  "description": "Runs every adapter on the same input and reports their segments with representative frames.",
   "private": true,
   "type": "module",
   "scripts": {
-    "compare": "bun src/cli.ts"
+    "start": "bun src/cli.ts"
   },
   "devDependencies": {
+    "@types/bun": "^1",
     "@types/node": "^22",
     "typescript": "^5"
   }

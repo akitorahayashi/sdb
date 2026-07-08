@@ -8,6 +8,7 @@
     "onnxruntime-node": ">=1.17.0 <2.0.0"
   },
   "devDependencies": {
+    "@types/bun": "^1",
     "@types/node": "^22",
     "typescript": "^5"
   },

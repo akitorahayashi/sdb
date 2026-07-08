@@ -4,7 +4,7 @@
 
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname } from "node:path";
+import { dirname, resolve } from "node:path";
 // Detector source is vendored under vendor/shot-detection (see its NOTICE.md);
 // Bun runs the TypeScript directly.
 import { detectShots } from "../vendor/shot-detection/index.ts";
@@ -25,9 +25,10 @@ if (!input || !output) {
   process.exit(1);
 }
 const threshold = Number(flag("threshold") ?? 0.5);
+const inputPath = resolve(input);
 
 const started = performance.now();
-const shots = await detectShots({ videoPath: input, threshold });
+const shots = await detectShots({ videoPath: inputPath, threshold });
 const elapsedMs = performance.now() - started;
 
 const segments = shots.map((shot, index) => ({
@@ -41,8 +42,8 @@ const document = {
   meta: {
     tool: "transnetv2",
     params: { threshold },
-    input,
-    inputSha256: sha256(input),
+    input: inputPath,
+    inputSha256: sha256(inputPath),
     elapsedMs,
     durationMs,
   },
